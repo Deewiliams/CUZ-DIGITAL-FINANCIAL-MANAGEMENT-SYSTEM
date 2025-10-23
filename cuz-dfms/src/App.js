@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import { createTheme, MantineProvider } from '@mantine/core';
 import StepperProgress from "../src/component/Stepper"
+import { Login } from './auth/Login';
 
 
 function App() {
@@ -10,7 +11,9 @@ function App() {
 
   return (
   <MantineProvider>
-    <StepperProgress />
+    {/* <StepperProgress /> */}
+    <Login />
+
     
     
   </MantineProvider>
@@ -18,4 +21,4 @@ function App() {
   );
 }
 
-export default App;
+export default App; 
