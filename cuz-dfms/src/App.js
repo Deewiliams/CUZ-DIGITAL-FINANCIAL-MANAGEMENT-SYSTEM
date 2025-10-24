@@ -3,6 +3,8 @@ import './App.css';
 import { createTheme, MantineProvider } from '@mantine/core';
 import StepperProgress from "../src/component/Stepper"
 import { Login } from './auth/Login';
+import { Hero } from './landingPage/Hero';
+
 
 
 function App() {
@@ -13,6 +15,7 @@ function App() {
   <MantineProvider>
     {/* <StepperProgress /> */}
     <Login />
+    <Hero/>
 
     
     
