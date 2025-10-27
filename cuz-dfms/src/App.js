@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Navigation } from './component/NavBar';
 import { ContactUs } from './landingPage/contactUs';
 import { ForgotPassword } from './auth/ForgotPassword';
+import { ChooseAccountType } from './auth/ChooseAccountType';
 
 
 function App() {
@@ -23,6 +24,8 @@ function App() {
         <Route path = "/login" element={<Login />} />
         <Route path = "/contact" element={<ContactUs />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/choose-account" element={<ChooseAccountType />} />
+
 
       </Routes>
     </Router>
