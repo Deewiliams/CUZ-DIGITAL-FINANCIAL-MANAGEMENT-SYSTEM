@@ -7,8 +7,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Navigation } from './component/NavBar';
 import { ContactUs } from './landingPage/contactUs';
 import { ForgotPassword } from './auth/ForgotPassword';
-import { ChooseAccountType } from './auth/ChooseAccountType';
-import { StudentAccountRegister } from './auth/StudentAccountRegister';
+import { ChooseAccountType } from './register/ChooseAccountType';
+import { StudentAccountRegister } from './register/StudentAccountRegister';
 
 
 function App() {
@@ -26,7 +26,7 @@ function App() {
         <Route path = "/contact" element={<ContactUs />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/choose-account" element={<ChooseAccountType />} />
-        <Route path="/register/student" element={<StudentAccountRegister />} />
+        <Route path="/register" element={<StudentAccountRegister />} />             
 
 
       </Routes>
