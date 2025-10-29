@@ -1,6 +1,9 @@
 import cx from 'clsx';
+import { Link } from "react-router-dom";
 import { Button, Container, Overlay, Text, Title } from '@mantine/core';
 import classes from './Hero.module.css';
+
+
 
 export function Hero() {
   return (
@@ -29,12 +32,14 @@ export function Hero() {
         </Container>
 
         <div className={classes.controls}>
+          <Link to="/login">
           <Button className={classes.control} variant="white" size="lg">
             Get started
           </Button>
           <Button className={cx(classes.control, classes.secondaryControl)} size="lg">
             Login To DashBoard
           </Button>
+          </Link> 
         </div>
       </div>
     </div>
