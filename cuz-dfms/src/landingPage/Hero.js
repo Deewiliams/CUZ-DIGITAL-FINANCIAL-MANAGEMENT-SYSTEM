@@ -15,7 +15,7 @@ export function Hero() {
           CUZ Digital Financial <br>
           </br>Management System{' '}
           <Text component="span" inherit className={classes.highlight}>
-            any stack
+          
           </Text>
         </Title>
 
