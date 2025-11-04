@@ -21,27 +21,47 @@ export function Login() {
   const [loading, setLoading] = useState(false); 
 
   const loginUser = () => {
-    setLoading(true); // 
+  setLoading(true);
 
-    fetch("http://localhost:9000/cuz/bank/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
+  fetch("http://localhost:8000/cuz/bank/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ email, password }),
+  })
+    .then(async (response) => {
+      const data = await response.json();
+      
+      if (response.ok) {
+        // Success response (status 200-299)
         console.log("Login successful:", data);
+        
+        // Store user data and token
+        if (data.token) {
+          localStorage.setItem('token', data.token);
+          localStorage.setItem('user', JSON.stringify(data.user));
+        }
+        
+        // Navigate to overview
         navigate("/overview");
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      })
-      .finally(() => {
-        setLoading(false); 
-      });
-  };
+        
+      } else {
+        // Error response (status 400-599)
+        console.error("Login failed:", data.error || data.message);
+        
+        // Show error to user (you might want to set an error state)
+        alert(data.error || "Login failed. Please try again.");
+      }
+    })
+    .catch((error) => {
+      console.error("Network error:", error.message);
+      alert("Network error. Please check your connection and try again.");
+    })
+    .finally(() => {
+      setLoading(false);
+    });
+};
 
   return (
     <div className={classes.background}>
