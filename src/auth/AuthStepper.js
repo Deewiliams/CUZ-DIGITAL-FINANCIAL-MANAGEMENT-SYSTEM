@@ -419,7 +419,9 @@ function AuthStepper() {
     const result = await registerUser(payload);
 
     if (result.success) {
-      navigate("/login");
+      setTimeout(() => {
+        navigate("/login");
+      }, 2000);
       // Clear form values
       form.reset();
       // Registration successful - you can redirect or perform additional actions here
