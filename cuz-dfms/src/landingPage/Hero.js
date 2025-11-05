@@ -8,12 +8,10 @@ import classes from './Hero.module.css';
 export function Hero() {
   return (
     <div className={classes.wrapper}>
-      <Overlay color="#000" opacity={0.65} zIndex={1} />
-
+       <Overlay color="#000" opacity={0.65} zIndex={1} />
       <div className={classes.inner}>
         <Title className={classes.title}>
-          CUZ Digital Financial <br>
-          </br>Management System{' '}
+          Forever.Trust.Bank{' '}
           <Text component="span" inherit className={classes.highlight}>
           
           </Text>
@@ -35,9 +33,6 @@ export function Hero() {
           <Link to="/login">
           <Button className={classes.control} variant="white" size="lg">
             Get started
-          </Button>
-          <Button className={cx(classes.control, classes.secondaryControl)} size="lg">
-            Login To DashBoard
           </Button>
           </Link> 
         </div>
