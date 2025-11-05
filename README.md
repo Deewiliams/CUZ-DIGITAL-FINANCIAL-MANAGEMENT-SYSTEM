@@ -1,97 +1,70 @@
-# 📘 Digital Financial Management System (DFMS) – Cavendish University Zambia  
+# Getting Started with Create React App
 
-## 📖 Overview  
-The **Digital Financial Management System (DFMS)** is a web-based solution designed to reduce queues and improve financial operations at **Cavendish University Zambia (CUZ)**.  
-It allows students to make tuition payments, check account balances, and view payment histories online, minimizing the need to physically visit the financial office.  
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
----
+## Available Scripts
 
-## 🛠️ Tech Stack
+In the project directory, you can run:
 
-| Layer               | Technology                                                                 |
-|--------------------|---------------------------------------------------------------------------|
-| Frontend           | React.js, HTML, CSS (Tailwind / Bootstrap), JavaScript                     |
-| Backend            | Node.js (Express) OR Python (Django / Flask)                               |
-| Database           | MySQL / PostgreSQL / SQLite                                                |
-| Payment Integration| Mobile Money APIs (MTN, Airtel) and Bank Payment Gateways                  |
-| Security           | HTTPS, SSL/TLS, Password Hashing (bcrypt), JWT Authentication 
+### `npm start`
 
----
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-## ✨ Features  
-- ✅ **Student Portal** – Online payments, account balance checks, transaction history  
-- ✅ **Finance Office Dashboard** – Reconciliation reports, real-time transaction monitoring  
-- ✅ **Secure Login System** – Role-based access control (Student, Finance Officer, Admin)  
-- ✅ **Automated Receipts** – Email confirmation and downloadable receipts  
-- ✅ **Reporting Module** – Generate monthly/annual financial reports  
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
 
----
+### `npm test`
 
-## 📂 Project Structure  
-DFMS/
-├── frontend/ # React.js code (components, pages, assets)
-├── backend/ # Node.js (Express) OR Django code (controllers, models, APIs)
-├── database/ # SQL scripts (schema, sample data)
-├── public/ # Static assets (images, CSS, JS)
-├── .env # Environment variables (DB credentials, API keys)
-└── README.md # Project documentation
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
+### `npm run build`
 
----
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-## 🚀 Installation & Setup  
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-### **1. Prerequisites**
-- PHP >= 8.0 OR Python >= 3.9  
-- MySQL / PostgreSQL  
-- Composer (for Laravel projects) OR pip (for Django)  
-- Web server (Apache/Nginx)  
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### **2. Setup Steps (Laravel Example)**  
-```bash
-# Clone the project
-git clone https://github.com/yourusername/DFMS.git
+### `npm run eject`
 
-# Navigate into project folder
-cd DFMS
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-# Install dependencies
-composer install
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-# Create environment file
-cp .env.example .env
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-# Configure your database in .env
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=dfms
-DB_USERNAME=root
-DB_PASSWORD=
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-# Run database migrations
-php artisan migrate
+## Learn More
 
-# Start the local server
-php artisan serve
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-🧪 Testing
+To learn React, check out the [React documentation](https://reactjs.org/).
 
-User Testing: Students and finance officers will test the system for usability.
+### Code Splitting
 
-Load Testing: Simulate peak registration week to ensure system performance.
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-Security Testing: Verify authentication, encryption, and role-based permissions.
+### Analyzing the Bundle Size
 
-📊 Evaluation Metrics
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-Queue Reduction: Compare average waiting times before and after implementation.
+### Making a Progressive Web App
 
-System Uptime: Ensure >99% availability during registration periods.
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
-User Satisfaction: Collect student feedback (target ≥ 85% satisfaction).
+### Advanced Configuration
 
-👥 Contributors
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
-Samson Kwizela – 104-789
-Racheal Milele – 104-719
+### Deployment
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+
+### `npm run build` fails to minify
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
