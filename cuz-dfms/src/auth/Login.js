@@ -22,6 +22,7 @@ import {
   initialLoginValues,
   loginValidationSchema,
 } from "../utils/SchemaValidation/login";
+import { loginUser } from "../services/authService";
 
 export function Login() {
   const navigate = useNavigate();
@@ -35,51 +36,19 @@ export function Login() {
     validateInputOnBlur: true,
   });
 
-  const handleSubmit = (values) => {
+  const handleSubmit = async (values) => {
     setLoading(true);
     setError("");
-    fetch("http://localhost:8000/cuz/bank/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email: values.email, password: values.password }),
-    })
-      .then(async (response) => {
-        const data = await response.json();
-
-        if (response.ok) {
-          // Success response (status 200-299)
-          console.log("Login successful:", data);
-
-          // Store user data and token using context
-          if (data && data.token) {
-            login(data.token, data.user); // Pass token and user data separately
-          }
-
-          // Navigate to overview (this will happen automatically due to PublicRoute redirect)
-          navigate("/overview");
-        } else {
-          // Error response (status 400-599)
-          console.error("Login failed:", data.error || data.message);
-          setError(data.error || "Login failed. Please try again.");
-        }
-      })
-      .catch((error) => {
-        console.error("Network error:", error.message);
-        if (error.message === "Failed to fetch") {
-          setError(
-            "Unable to connect to server. Please ensure the backend server is running on http://localhost:8000"
-          );
-        } else {
-          setError(
-            "Network error. Please check your connection and try again."
-          );
-        }
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    const result = await loginUser(values.email, values.password);
+    if (result.success) {
+      if (result.token) {
+        login(result.token, result.user);
+      }
+      navigate("/overview");
+    } else {
+      setError(result.error);
+    }
+    setLoading(false);
   };
 
   return (

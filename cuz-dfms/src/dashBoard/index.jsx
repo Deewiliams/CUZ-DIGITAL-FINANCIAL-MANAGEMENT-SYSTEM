@@ -45,7 +45,7 @@ export function Dashboard() {
   const navigate = useNavigate();
   const [opened, { toggle, close }] = useDisclosure(false);
 
-  console.log("Dashboard user:", user);
+  console.log("Dashboard user:", user?.name);
   const handleLogout = () => {
     logout();
     navigate("/login");
@@ -77,7 +77,7 @@ export function Dashboard() {
             Forever Trust Bank
           </Text>
           <Group gap="md" className={classes.rightHeaderGroup}>
-            <Text>Welcome, {user?.user?.name}</Text>
+            <Text>Welcome, {user?.name}</Text>
             <IconBellRinging size={20} className={classes.notificationIcon} />
             <Avatar
               src={null}
