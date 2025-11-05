@@ -109,6 +109,12 @@
   background: #fef2f2;
 }
 
+.devNotice {
+  border-radius: 8px;
+  border: 1px solid #bfdbfe;
+  background: #eff6ff;
+}
+
 .input input {
   border: 1.5px solid #e5e7eb;
   transition: all 0.2s ease;

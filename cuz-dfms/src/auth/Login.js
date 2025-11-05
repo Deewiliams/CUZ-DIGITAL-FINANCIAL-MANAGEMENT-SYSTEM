@@ -13,47 +13,37 @@ import {
   Stack,
   Alert,
 } from "@mantine/core";
+import { useForm } from "@mantine/form";
 import classes from "./Login.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
+import {
+  initialLoginValues,
+  loginValidationSchema,
+} from "../utils/SchemaValidation/login";
 
 export function Login() {
   const navigate = useNavigate();
   const { login } = useAuth();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const loginUser = () => {
+  const form = useForm({
+    initialValues: initialLoginValues,
+    validate: loginValidationSchema,
+    validateInputOnBlur: true,
+  });
+
+  const handleSubmit = (values) => {
     setLoading(true);
     setError("");
-
-    // Development mode - mock login (remove this in production)
-    const isDevelopment = process.env.NODE_ENV === "development";
-    const useMockLogin =
-      isDevelopment && (email === "demo@bank.com" || email === "test@test.com");
-
-    if (useMockLogin) {
-      setTimeout(() => {
-        const mockToken = "mock-jwt-token-" + Date.now();
-        const mockUser = { id: 1, email: email, name: "Demo User" };
-
-        login(mockToken);
-        localStorage.setItem("user", JSON.stringify(mockUser));
-        navigate("/overview");
-        setLoading(false);
-      }, 1000); // Simulate network delay
-      return;
-    }
-
     fetch("http://localhost:8000/cuz/bank/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ email: values.email, password: values.password }),
     })
       .then(async (response) => {
         const data = await response.json();
@@ -104,102 +94,90 @@ export function Login() {
 
           {/* Login Form */}
           <Paper className={classes.loginForm} shadow="xl" radius="lg" p={32}>
-            <Stack gap="md">
-              <div className={classes.formHeader}>
-                <Title order={2} className={classes.formTitle}>
-                  Welcome Back
-                </Title>
-                <Text className={classes.formSubtitle}>
-                  Sign in to access your account
-                </Text>
-              </div>
-
-              {error && (
-                <Alert
-                  color="red"
-                  variant="light"
-                  className={classes.errorAlert}
-                >
-                  {error}
-                </Alert>
-              )}
-
-              {process.env.NODE_ENV === "development" && (
-                <Alert color="blue" variant="light">
-                  <Text size="sm">
-                    <strong>Development Mode:</strong> Use{" "}
-                    <code>demo@bank.com</code> or <code>test@test.com</code>{" "}
-                    with any password for mock login when backend is
-                    unavailable.
+            <form onSubmit={form.onSubmit(handleSubmit)}>
+              <Stack gap="md">
+                <div className={classes.formHeader}>
+                  <Title order={2} className={classes.formTitle}>
+                    Welcome Back
+                  </Title>
+                  <Text className={classes.formSubtitle}>
+                    Sign in to access your account
                   </Text>
-                </Alert>
-              )}
+                </div>
 
-              <TextInput
-                label="Email Address"
-                placeholder="Enter your email"
-                required
-                size="md"
-                radius="md"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className={classes.input}
-                leftSection="📧"
-              />
+                {error && (
+                  <Alert
+                    color="red"
+                    variant="light"
+                    className={classes.errorAlert}
+                  >
+                    {error}
+                  </Alert>
+                )}
 
-              <PasswordInput
-                label="Password"
-                placeholder="Enter your password"
-                required
-                size="md"
-                radius="md"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className={classes.input}
-                leftSection="🔒"
-              />
-
-              <Group justify="space-between" mt="md">
-                <Checkbox
-                  label="Remember me"
-                  size="sm"
-                  className={classes.checkbox}
+                <TextInput
+                  label="Email Address"
+                  placeholder="Enter your email"
+                  size="md"
+                  radius="md"
+                  className={classes.input}
+                  leftSection="📧"
+                  {...form.getInputProps("email")}
                 />
-                <Anchor
-                  component={Link}
-                  to="/forgot-password"
-                  className={classes.forgotLink}
-                  size="sm"
-                >
-                  Forgot password?
-                </Anchor>
-              </Group>
 
-              <Button
-                fullWidth
-                size="md"
-                radius="md"
-                onClick={loginUser}
-                loading={loading}
-                className={classes.loginButton}
-                mt="lg"
-              >
-                {loading ? "Signing in..." : "Sign In"}
-              </Button>
+                <PasswordInput
+                  label="Password"
+                  placeholder="Enter your password"
+                  size="md"
+                  radius="md"
+                  className={classes.input}
+                  leftSection="🔒"
+                  {...form.getInputProps("password")}
+                />
 
-              <Box className={classes.signupSection}>
-                <Text size="sm" className={classes.signupText}>
-                  Don't have an account?{" "}
+                <Group justify="space-between" mt="md">
+                  <Checkbox
+                    label="Remember me"
+                    size="sm"
+                    className={classes.checkbox}
+                    {...form.getInputProps("rememberMe", { type: "checkbox" })}
+                  />
                   <Anchor
                     component={Link}
-                    to="/choose-account"
-                    className={classes.signupLink}
+                    to="/forgot-password"
+                    className={classes.forgotLink}
+                    size="sm"
                   >
-                    Create Account
+                    Forgot password?
                   </Anchor>
-                </Text>
-              </Box>
-            </Stack>
+                </Group>
+
+                <Button
+                  fullWidth
+                  size="md"
+                  radius="md"
+                  type="submit"
+                  loading={loading}
+                  className={classes.loginButton}
+                  mt="lg"
+                >
+                  {loading ? "Signing in..." : "Sign In"}
+                </Button>
+
+                <Box className={classes.signupSection}>
+                  <Text size="sm" className={classes.signupText}>
+                    Don't have an account?{" "}
+                    <Anchor
+                      component={Link}
+                      to="/choose-account"
+                      className={classes.signupLink}
+                    >
+                      Create Account
+                    </Anchor>
+                  </Text>
+                </Box>
+              </Stack>
+            </form>
           </Paper>
 
           {/* Security Notice */}
