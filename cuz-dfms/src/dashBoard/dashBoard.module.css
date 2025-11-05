@@ -5,6 +5,60 @@
   flex-direction: column;
 }
 
+/* Desktop header - only visible on large screens */
+.desktopHeader {
+  display: flex;
+  background-color: var(--mantine-color-body);
+  border-bottom: 2px solid
+    light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
+  padding: var(--mantine-spacing-md) var(--mantine-spacing-xl);
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.desktopHeaderContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-left: 300px; /* Account for sidebar width */
+}
+
+.headerTitle {
+  color: light-dark(var(--mantine-color-gray-8), var(--mantine-color-dark-0));
+  margin-left: var(--mantine-spacing-md);
+}
+
+.version {
+  background-color: var(--mantine-color-blue-light);
+  color: var(--mantine-color-blue);
+  border-radius: var(--mantine-radius-sm);
+  padding: 4px 8px;
+}
+
+.notificationIcon {
+  color: light-dark(var(--mantine-color-gray-6), var(--mantine-color-dark-2));
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.notificationIcon:hover {
+  color: var(--mantine-color-blue);
+}
+
+.desktopHeaderAvatar {
+  background-color: var(--mantine-color-blue-light);
+  color: var(--mantine-color-blue);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.desktopHeaderAvatar:hover {
+  transform: scale(1.05);
+}
+
 /* Mobile header - only visible on small screens */
 .mobileHeader {
   display: none;
@@ -162,6 +216,12 @@
     flex-direction: column;
   }
 
+  /* Hide desktop header on mobile */
+  .desktopHeader {
+    display: none;
+  }
+
+  /* Show mobile header */
   .mobileHeader {
     display: block;
   }
@@ -181,5 +241,26 @@
 
   .desktopAvatar {
     display: none;
+  }
+}
+
+@media (min-width: 769px) {
+  /* Show desktop header on large screens */
+  .desktopHeader {
+    display: flex;
+  }
+
+  /* Hide mobile header on desktop */
+  .mobileHeader {
+    display: none;
+  }
+
+  .burger {
+    display: none;
+  }
+
+  /* Adjust content margin for desktop header */
+  .content {
+    margin-top: 0; /* Desktop header is sticky, so no extra margin needed */
   }
 }

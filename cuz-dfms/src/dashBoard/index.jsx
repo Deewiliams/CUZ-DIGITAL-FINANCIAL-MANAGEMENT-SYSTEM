@@ -67,6 +67,30 @@ export function Dashboard() {
 
   return (
     <div className={classes.dashboardContainer}>
+      {/* Desktop Header - visible on large screens */}
+      <header className={classes.desktopHeader}>
+        <div className={classes.desktopHeaderContent}>
+          <Group>
+            <Code fw={700} className={classes.version}>
+              v3.1.2
+            </Code>
+            <Text size="xl" fw={600} className={classes.headerTitle}>
+              Forever Trust Bank - Dashboard
+            </Text>
+          </Group>
+          <Group gap="md">
+            <IconBellRinging size={20} className={classes.notificationIcon} />
+            <Avatar
+              src={null}
+              alt="User avatar"
+              radius="xl"
+              className={classes.desktopHeaderAvatar}
+              size="md"
+            />
+          </Group>
+        </div>
+      </header>
+
       {/* Header bar for mobile with burger and avatar */}
       <div className={classes.mobileHeader}>
         <Group justify="space-between" className={classes.mobileHeaderContent}>
