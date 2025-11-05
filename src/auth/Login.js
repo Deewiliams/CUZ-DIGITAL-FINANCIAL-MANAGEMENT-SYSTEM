@@ -21,7 +21,7 @@ import { useAuth } from "../contexts/AuthContext";
 import {
   initialLoginValues,
   loginValidationSchema,
-} from "../utils/SchemaValidation/login";
+} from "../utils/schemaValidation/login";
 import { loginUser } from "../services/authService";
 
 export function Login() {
