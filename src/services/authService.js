@@ -1,3 +1,5 @@
+import { toast } from "react-toastify";
+
 export const loginUser = async (email, password) => {
   try {
     const response = await fetch(
@@ -45,5 +47,37 @@ export const loginUser = async (email, password) => {
         error: "Network error. Please check your connection and try again.",
       };
     }
+  }
+};
+
+export const registerUser = async (payload) => {
+  try {
+    const response = await fetch(
+      `${process.env.REACT_APP_API_BASE_URL}/register`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(payload),
+      }
+    );
+
+    const data = await response.json();
+    console.log("Registration response:", data);
+
+    if (response.ok) {
+      toast.success("Registration successful!");
+      return { success: true, data };
+    } else {
+      const errorMessage = data.error || data.message || "Unknown error";
+      toast.error(`Registration failed: ${errorMessage}`);
+      return { success: false, error: errorMessage, data };
+    }
+  } catch (error) {
+    console.error("Network error:", error);
+    toast.error("Network error. Please check your connection and try again.");
+    return { success: false, error: "Network error", data: null };
   }
 };

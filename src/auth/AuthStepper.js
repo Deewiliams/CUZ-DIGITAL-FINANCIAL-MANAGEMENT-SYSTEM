@@ -5,9 +5,13 @@ import AccountType from "./AccountType";
 import CreatePassword from "./CreatePassword";
 import Preview from "./Preview";
 import { useForm } from "@mantine/form";
+import { toast } from "react-toastify";
+import { registerUser } from "../services/authService";
+import { useNavigate } from "react-router-dom";
 
 function AuthStepper() {
   const [active, setActive] = useState(0);
+  const navigate = useNavigate();
 
   const form = useForm({
     mode: "uncontrolled",
@@ -368,12 +372,12 @@ function AuthStepper() {
   const prevStep = () =>
     setActive((current) => (current > 0 ? current - 1 : current));
 
-  const handleRegistration = () => {
+  const handleRegistration = async () => {
     const values = form.getValues();
 
     // Validate that required fields are present
     if (!values.fullName || values.fullName.trim() === "") {
-      alert("Please fill in your full name before submitting");
+      toast.error("Please fill in your full name before submitting");
       return;
     }
 
@@ -411,32 +415,19 @@ function AuthStepper() {
       initialDeposit: values.initialDeposit,
     };
 
-    // Submit registration to server
-    fetch("http://localhost:8000/cuz/bank/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify(payload),
-    })
-      .then(async (response) => {
-        const data = await response.json();
-        console.log("Registration response:", data);
+    // Submit registration using auth service
+    const result = await registerUser(payload);
 
-        if (response.ok) {
-          alert("Registration successful!");
-        } else {
-          alert(
-            `Registration failed: ${
-              data.error || data.message || "Unknown error"
-            }`
-          );
-        }
-      })
-      .catch((error) => {
-        alert("Network error. Please check your connection and try again.");
-      });
+    if (result.success) {
+      navigate("/login");
+      // Clear form values
+      form.reset();
+      // Registration successful - you can redirect or perform additional actions here
+      console.log("Registration successful:", result.data);
+    } else {
+      // Error handling is already done in the service with toasts
+      console.error("Registration failed:", result.error);
+    }
   };
 
   return (
