@@ -10,6 +10,10 @@ import {
   IconSettings,
   IconSwitchHorizontal,
   IconMenu2,
+  IconUserPlus,
+  IconTransfer,
+  IconReceipt,
+  IconLibrary,
 } from "@tabler/icons-react";
 import {
   Code,
@@ -28,13 +32,11 @@ import { useDisclosure } from "@mantine/hooks";
 import classes from "./dashBoard.module.css";
 
 const data = [
+  { link: "", label: "Balance", icon: IconLibrary },
+  { link: "", label: "Pay & Transfer", icon: IconTransfer },
+  { link: "", label: "Add beneficiary ", icon: IconUserPlus },
   { link: "", label: "Notifications", icon: IconBellRinging },
-  { link: "", label: "Billing", icon: IconReceipt2 },
-  { link: "", label: "Security", icon: IconFingerprint },
-  { link: "", label: "SSH Keys", icon: IconKey },
-  { link: "", label: "Databases", icon: IconDatabaseImport },
-  { link: "", label: "Authentication", icon: Icon2fa },
-  { link: "", label: "Other Settings", icon: IconSettings },
+  { link: "", label: " receipts", icon: IconReceipt },
 ];
 
 export function Dashboard() {
