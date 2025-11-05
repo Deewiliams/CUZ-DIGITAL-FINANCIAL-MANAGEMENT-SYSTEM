@@ -1,9 +1,9 @@
-import { Select, TextInput, Button, Container } from "@mantine/core";
+import { Select, TextInput, Button, Container, Stack } from "@mantine/core";
 import React, { useState, useEffect } from "react";
 import { NumberInput } from "@mantine/core";
 
 const StudentForm = ({ form }) => (
-  <div>
+  <Stack gap="sm">
     <TextInput
       label="School Name"
       placeholder="Cavendish University"
@@ -35,7 +35,6 @@ const StudentForm = ({ form }) => (
 
     <NumberInput
       label="Year Of Study"
-      description=" (1 to 7)"
       placeholder="Enter your year"
       min={1}
       max={7}
@@ -52,11 +51,11 @@ const StudentForm = ({ form }) => (
       size="md"
       {...form.getInputProps("expectedCompletion")}
     />
-  </div>
+  </Stack>
 );
 
 const PersonalForm = ({ form }) => (
-  <div>
+  <Stack  gap="sm">
     <TextInput
       label="Full Name"
       placeholder="Enter your name"
@@ -69,11 +68,11 @@ const PersonalForm = ({ form }) => (
       size="md"
       {...form.getInputProps("nationalId")}
     />
-  </div>
+  </Stack>
 );
 
 const BusinessForm = ({ form }) => (
-  <div>
+  <Stack gap="sm">
     <TextInput
       label="Business Name"
       placeholder="Enter your business name"
@@ -86,11 +85,11 @@ const BusinessForm = ({ form }) => (
       size="md"
       {...form.getInputProps("registrationNumber")}
     />
-  </div>
+  </Stack>
 );
 
 const SavingsForm = ({ form }) => (
-  <div>
+  <Stack gap="sm">
     <TextInput
       label="Account Holder Name"
       placeholder="Enter name"
@@ -103,7 +102,7 @@ const SavingsForm = ({ form }) => (
       size="md"
       {...form.getInputProps("initialDeposit")}
     />
-  </div>
+  </Stack>
 );
 
 const accountType = [

@@ -355,7 +355,7 @@ function AuthStepper() {
     setActive((current) => (current > 0 ? current - 1 : current));
 
   return (
-    <Container>
+    <Container style={{marginTop: '-70px'}} >
       <Stepper active={active} onStepClick={setActive}>
         <Stepper.Step
           label="Personal Info"
