@@ -230,7 +230,6 @@ function AuthStepper() {
   // Validation function for each step
   const validateCurrentStep = () => {
     const values = form.getValues();
-    console.log("Validating step:", values);
 
     switch (active) {
       case 0: // Personal Information step
@@ -369,6 +368,77 @@ function AuthStepper() {
   const prevStep = () =>
     setActive((current) => (current > 0 ? current - 1 : current));
 
+  const handleRegistration = () => {
+    const values = form.getValues();
+
+    // Validate that required fields are present
+    if (!values.fullName || values.fullName.trim() === "") {
+      alert("Please fill in your full name before submitting");
+      return;
+    }
+
+    // Prepare the payload
+    const payload = {
+      type: values.accountType,
+      name: values.fullName,
+      email: values.email,
+      phone: values.phone,
+      dob: values.dateOfBirth,
+      address: values.address,
+      gender: values.gender,
+      password: values.password,
+      confirmPassword: values.confirmPassword,
+      termsOfService: Boolean(values.termsOfService), // Ensure boolean
+      tpinNumber: values.tpinNumber,
+      nationalId: values.nationalId,
+
+      // Student Account Fields
+      schoolName: values.schoolName,
+      studentId: values.studentNumber,
+      course: values.courseOfStudy,
+      yearOfStudy: parseInt(values.yearOfStudy) || null, // Ensure number
+      expectedCompletion: parseInt(values.expectedCompletion) || null, // Ensure number
+
+      // Personal Account Fields
+      personalFullName: values.personalFullName,
+
+      // Business Account Fields
+      businessName: values.businessName,
+      registrationNumber: values.registrationNumber,
+
+      // Savings Account Fields
+      accountHolderName: values.accountHolderName,
+      initialDeposit: values.initialDeposit,
+    };
+
+    // Submit registration to server
+    fetch("http://localhost:8000/cuz/bank/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify(payload),
+    })
+      .then(async (response) => {
+        const data = await response.json();
+        console.log("Registration response:", data);
+
+        if (response.ok) {
+          alert("Registration successful!");
+        } else {
+          alert(
+            `Registration failed: ${
+              data.error || data.message || "Unknown error"
+            }`
+          );
+        }
+      })
+      .catch((error) => {
+        alert("Network error. Please check your connection and try again.");
+      });
+  };
+
   return (
     <Container style={{ marginTop: "-70px" }}>
       <Stepper active={active} onStepClick={setActive}>
@@ -410,14 +480,7 @@ function AuthStepper() {
             {active === 2 ? "Complete Registration" : "Next Step"}
           </Button>
         ) : (
-          <Button
-            onClick={() => {
-              console.log("Form submitted:", form.getValues());
-              // Add your form submission logic here
-            }}
-          >
-            Submit Registration
-          </Button>
+          <Button onClick={handleRegistration}>Submit Registration</Button>
         )}
       </Group>
     </Container>
