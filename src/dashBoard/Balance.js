@@ -24,27 +24,26 @@ import { useAuth } from "../contexts/AuthContext";
 import { accountBalance } from "../services/authService";
 import Loading from "../component/Loading";
 import { formatAmount } from "../utils/schemaValidation/src/utils/src/utils/Helpers";
+import { toast } from "react-toastify";
 
 const Balance = () => {
   const { user } = useAuth();
   const [balanceData, setBalanceData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
 
   const fetchBalanceData = async () => {
     setIsLoading(true);
-    setError(null);
     try {
       const response = await accountBalance();
 
       if (response.success) {
         setBalanceData(response.data);
       } else {
-        setError(response.error || "Failed to fetch balance data");
+        toast.error(response.error || "Failed to fetch balance data");
       }
     } catch (error) {
       console.error("Error fetching balance:", error);
-      setError("Network error occurred");
+      toast.error("Network error occurred");
     } finally {
       setIsLoading(false);
     }
@@ -66,9 +65,7 @@ const Balance = () => {
           <Text size="xl" fw={700} c="dark">
             Account Balance
           </Text>
-          <Text size="sm" c="dimmed">
-            Welcome back, {user?.firstName || user?.name || "User"}
-          </Text>
+
           <Text size="xs" c="dimmed" mt="xs">
             Last updated:{" "}
             {moment(balanceData?.account?.lastUpdated).format(
@@ -86,25 +83,21 @@ const Balance = () => {
         </ActionIcon>
       </Group>
 
-      {/* Error Alert */}
-      {error && (
-        <Alert color="yellow" mb="md" title="Notice">
-          {error}. Showing demo data for preview.
-        </Alert>
-      )}
-
       {/* Main Balance Card */}
       <Card shadow="sm" padding="xl" radius="lg" withBorder mb="lg">
         <Group justify="space-between" align="flex-start" mb="md">
           <Box>
             <Group align="center" gap="xs" mb="xs">
               <IconWallet size="1.2rem" color="#228be6" />
-              <Text size="sm" fw={500} c="dimmed">
+              <Text size="sm" fw={500} c="black">
                 {balanceData?.account?.accountType || "Savings"} Account
               </Text>
             </Group>
             <Text size="sm" c="dimmed" fw={500}>
-              Account: {balanceData?.account?.accountNumber || "****1234"}
+              <span style={{ color: "black" }}>
+                Account:
+              </span>
+                  {balanceData?.account?.accountNumber || "****1234"}
             </Text>
           </Box>
           <Badge
@@ -135,13 +128,13 @@ const Balance = () => {
 
       {/* Quick Stats */}
       <Card shadow="xs" padding="md" radius="md" withBorder mt="lg">
-        <Text size="sm" fw={500} mb="xs" c="dimmed">
+        <Text size="sm" fw={500} mb="xs" c="black-500 font-bold">
           Account Activity
         </Text>
         <Stack spacing="xs">
           <Group justify="space-between">
             <Text size="xs" c="dimmed">
-              Account opened:{" "}
+              <span style={{ color: "black" }}>Account opened:</span>{" "}
               {moment(balanceData?.account?.createdAt).format(
                 "dddd Do MMMM YYYY [at] h:mm A"
               )}
