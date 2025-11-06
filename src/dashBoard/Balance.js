@@ -19,6 +19,7 @@ import {
   IconWallet,
   IconTrendingUp,
 } from "@tabler/icons-react";
+import moment from "moment";
 import { useAuth } from "../contexts/AuthContext";
 import { accountBalance } from "../services/authService";
 import Loading from "../component/Loading";
@@ -29,7 +30,6 @@ const Balance = () => {
   const [balanceData, setBalanceData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  console.log("Balance user:", balanceData);
 
   const fetchBalanceData = async () => {
     setIsLoading(true);
@@ -68,6 +68,12 @@ const Balance = () => {
           </Text>
           <Text size="sm" c="dimmed">
             Welcome back, {user?.firstName || user?.name || "User"}
+          </Text>
+          <Text size="xs" c="dimmed" mt="xs">
+            Last updated:{" "}
+            {moment(balanceData?.account?.lastUpdated).format(
+              "dddd Do MMMM YYYY [at] h:mm A"
+            )}
           </Text>
         </Box>
         <ActionIcon
@@ -132,15 +138,20 @@ const Balance = () => {
         <Text size="sm" fw={500} mb="xs" c="dimmed">
           Account Activity
         </Text>
-        <Group justify="space-between">
-          <Text size="xs" c="dimmed">
-            Recent transaction number:{" "}
-            {balanceData?.summary?.recentTransactionsCount}
-          </Text>
-          <Text size="xs" c="dimmed">
-            Account opened: {balanceData?.account?.createdAt || "N/A"}
-          </Text>
-        </Group>
+        <Stack spacing="xs">
+          <Group justify="space-between">
+            <Text size="xs" c="dimmed">
+              Account opened:{" "}
+              {moment(balanceData?.account?.createdAt).format(
+                "dddd Do MMMM YYYY [at] h:mm A"
+              )}
+            </Text>
+            <Text size="xs" c="dimmed">
+              {balanceData?.summary?.recentTransactionsCount || "-"} total
+              transactions
+            </Text>
+          </Group>
+        </Stack>
       </Card>
     </Container>
   );
