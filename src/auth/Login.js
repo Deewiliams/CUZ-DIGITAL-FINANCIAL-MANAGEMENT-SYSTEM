@@ -18,11 +18,12 @@ import classes from "./Login.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
+
+import { loginUser } from "../services/authService";
 import {
   initialLoginValues,
   loginValidationSchema,
 } from "../utils/schemaValidation/login";
-import { loginUser } from "../services/authService";
 
 export function Login() {
   const navigate = useNavigate();
