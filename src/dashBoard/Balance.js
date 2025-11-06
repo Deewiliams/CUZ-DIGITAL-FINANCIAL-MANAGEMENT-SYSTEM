@@ -14,7 +14,7 @@ import { IconRefresh, IconWallet } from "@tabler/icons-react";
 import moment from "moment";
 import { accountBalance } from "../services/authService";
 import Loading from "../component/Loading";
-import { formatAmount } from "../utils/schemaValidation/Helpers";
+import { formatAmount } from "../schemaValidation/Helpers";
 import { toast } from "react-toastify";
 
 const Balance = () => {

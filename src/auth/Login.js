@@ -23,7 +23,7 @@ import { loginUser } from "../services/authService";
 import {
   initialLoginValues,
   loginValidationSchema,
-} from "../utils/schemaValidation/login";
+} from "../schemaValidation/login";
 
 export function Login() {
   const navigate = useNavigate();

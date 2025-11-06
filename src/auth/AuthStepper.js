@@ -8,8 +8,10 @@ import { useForm } from "@mantine/form";
 import { toast } from "react-toastify";
 import { registerUser } from "../services/authService";
 import { useNavigate } from "react-router-dom";
-import { registrationInitialValues, registrationValidationSchema } from "../utils/schemaValidation/registration";
-
+import {
+  registrationInitialValues,
+  registrationValidationSchema,
+} from "../schemaValidation/registration";
 
 function AuthStepper() {
   const [active, setActive] = useState(0);
