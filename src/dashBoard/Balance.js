@@ -29,6 +29,7 @@ const Balance = () => {
   const [balanceData, setBalanceData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  console.log("Balance user:", balanceData);
 
   const fetchBalanceData = async () => {
     setIsLoading(true);
@@ -133,10 +134,11 @@ const Balance = () => {
         </Text>
         <Group justify="space-between">
           <Text size="xs" c="dimmed">
-            Last transaction: Today, 2:30 PM
+            Recent transaction number:{" "}
+            {balanceData?.summary?.recentTransactionsCount}
           </Text>
           <Text size="xs" c="dimmed">
-            Account opened: Jan 2024
+            Account opened: {balanceData?.account?.createdAt || "N/A"}
           </Text>
         </Group>
       </Card>
