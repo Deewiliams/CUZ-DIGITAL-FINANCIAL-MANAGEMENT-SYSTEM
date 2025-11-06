@@ -9,13 +9,16 @@ import {
   TextInput,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
-import { transaction } from "../services/authService";
+import { transaction, transactionHistory } from "../services/authService";
 import { useDisclosure } from "@mantine/hooks";
+import { Stats } from "../component/Stats";
 
 const Transfer = () => {
   const [opened, { open, close }] = useDisclosure(false);
+  const [summary, setSummary] = useState();
+
   const accountNumber = localStorage.getItem("accountNumber");
   console.log("Account Number from localStorage:", accountNumber);
   const form = useForm({
@@ -70,6 +73,21 @@ const Transfer = () => {
     }
   };
 
+  const fetchTransactionHistory = async () => {
+    const response = await transactionHistory(accountNumber);
+
+    setSummary(response.data.summary);
+    if (response.success) {
+      console.log("Transaction history successful:", response.data);
+    } else {
+      console.error("Transaction history failed:", response.error);
+    }
+  };
+
+  useEffect(() => {
+    fetchTransactionHistory();
+  }, [accountNumber]);
+
   return (
     <>
       <Text size="xl" c="black" mt="lg">
@@ -120,7 +138,8 @@ const Transfer = () => {
       <Button variant="default" onClick={open}>
         Tranfer Money
       </Button>
-      <Container size={600}></Container>
+
+      <Stats summary={summary} />
     </>
   );
 };
