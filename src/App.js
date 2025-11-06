@@ -21,6 +21,10 @@ import { ProtectedRoute, PublicRoute } from "./components/ProtectedRoute";
 import { DashboardLayout, PublicLayout } from "./components/Layout";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Transfer from "./dashBoard/Transfer.js";
+import Beneficiary from "./dashBoard/Beneficiary.js";
+import Notifications from "./dashBoard/Notifications.js";
+import Receipts from "./dashBoard/Receipts.js";
 
 function App() {
   return (
@@ -107,42 +111,10 @@ function App() {
             >
               <Route index element={<Navigate to="balance" replace />} />
               <Route path="balance" element={<Balance />} />
-              <Route
-                path="transfer"
-                element={
-                  <div style={{ padding: "1rem" }}>
-                    <h2>Pay & Transfer</h2>
-                    <p>This is the pay & transfer section content.</p>
-                  </div>
-                }
-              />
-              <Route
-                path="beneficiary"
-                element={
-                  <div style={{ padding: "1rem" }}>
-                    <h2>Add Beneficiary</h2>
-                    <p>This is the add beneficiary section content.</p>
-                  </div>
-                }
-              />
-              <Route
-                path="notifications"
-                element={
-                  <div style={{ padding: "1rem" }}>
-                    <h2>Notifications</h2>
-                    <p>This is the notifications section content.</p>
-                  </div>
-                }
-              />
-              <Route
-                path="receipts"
-                element={
-                  <div style={{ padding: "1rem" }}>
-                    <h2>Receipts</h2>
-                    <p>This is the receipts section content.</p>
-                  </div>
-                }
-              />
+              <Route path="transfer" element={<Transfer />} />
+              <Route path="beneficiary" element={<Beneficiary />} />
+              <Route path="notifications" element={<Notifications />} />
+              <Route path="receipts" element={<Receipts />} />
             </Route>
           </Routes>
         </Router>
