@@ -230,7 +230,7 @@ const Deposit = () => {
                   />
 
                   <NumberInput
-                    label="Deposit Amount (RWF)"
+                    label="Deposit Amount (zmw)"
                     placeholder="50000"
                     size="md"
                     radius="md"
