@@ -76,35 +76,10 @@ const Deposit = () => {
       amount: values.amount,
       description: values.description,
     };
-    try {
-      // Simulate API call
-      const response = await depositFunds(payload);
-      console.log("deposit response:", response);
-      //   await new Promise((resolve) => setTimeout(resolve, 2000));
-
-      // Add to recent deposits
-      const newDeposit = {
-        id: Date.now(),
-        accountNumber: values.accountNumber,
-        amount: values.amount,
-        description: values.description,
-        timestamp: "Just now",
-        status: "completed",
-      };
-
-      //   setRecentDeposits((prev) => [newDeposit, ...prev.slice(0, 4)]);
-
-      toast.success(
-        `Successfully deposited k ${values.amount.toLocaleString()} to ${
-          values.accountNumber
-        }`
-      );
-      form.reset();
-    } catch (error) {
-      toast.error("Failed to process deposit. Please try again.");
-    } finally {
-      setLoading(false);
-    }
+    await depositFunds(payload);
+    form.reset();
+    setLoading(false);
+    fetchRecentDeposits();
   };
 
   const fetchRecentDeposits = async () => {
@@ -215,13 +190,13 @@ const Deposit = () => {
                   />
 
                   <NumberInput
-                    label="Deposit Amount (zmw)"
+                    label="Deposit Amount (ZMW)"
                     placeholder="50000"
                     size="md"
                     radius="md"
                     leftSection={<IconCreditCard size="1.2rem" />}
-                    description="Enter amount to deposit (minimum: RWF 1,000)"
-                    min={1000}
+                    description="Enter amount to deposit (minimum: ZMW 100)"
+                    min={100}
                     max={1000000}
                     thousandSeparator=","
                     {...form.getInputProps("amount")}
