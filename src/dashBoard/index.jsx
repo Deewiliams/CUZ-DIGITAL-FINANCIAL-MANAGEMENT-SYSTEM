@@ -1,15 +1,9 @@
 import { useState } from "react";
 import {
-  Icon2fa,
   IconBellRinging,
-  IconDatabaseImport,
-  IconFingerprint,
-  IconKey,
   IconLogout,
   IconReceipt2,
-  IconSettings,
   IconSwitchHorizontal,
-  IconMenu2,
   IconUserPlus,
   IconTransfer,
   IconReceipt,
@@ -22,13 +16,11 @@ import {
   Burger,
   Drawer,
   Stack,
-  Box,
   Text,
 } from "@mantine/core";
 import { Link, useNavigate, useLocation, Outlet } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { useDisclosure } from "@mantine/hooks";
-// import { MantineLogo } from "@mantinex/mantine-logo";
 import classes from "./dashBoard.module.css";
 
 const allRoutes = [
@@ -47,7 +39,7 @@ const adminRoutes = [
 ];
 
 export function Dashboard() {
-  const { logout, token, user } = useAuth();
+  const { logout, user } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const [opened, { toggle, close }] = useDisclosure(false);
@@ -65,7 +57,6 @@ export function Dashboard() {
     return user && user.type === "admin" ? "Deposit" : "Balance";
   };
 
-  console.log("Dashboard user:", user?.name);
   const handleLogout = () => {
     logout();
     navigate("/login");

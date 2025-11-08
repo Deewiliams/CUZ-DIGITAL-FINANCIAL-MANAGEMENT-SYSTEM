@@ -18,27 +18,21 @@ import {
   Alert,
   ActionIcon,
   Divider,
-  Avatar,
 } from "@mantine/core";
 import {
   IconCreditCard,
   IconWallet,
   IconUser,
   IconCheck,
-  IconX,
   IconRefresh,
   IconHistory,
   IconAlertCircle,
-  IconSchool,
   IconBuildingBank,
-  IconTrendingUp,
 } from "@tabler/icons-react";
 import { useForm } from "@mantine/form";
-import { toast } from "react-toastify";
 import { depositFunds, getRecentDeposits } from "../services/authService";
 import { formatAmount } from "../schemaValidation/Helpers";
 import moment from "moment";
-import { Link } from "react-router-dom";
 
 const Deposit = () => {
   const [loading, setLoading] = useState(false);
