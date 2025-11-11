@@ -305,48 +305,32 @@ export const getRecentDeposits = async () => {
 };
 
 export const getDeposits = async () => {
-  try {
-    const response = await fetch(
-      `${process.env.REACT_APP_API_BASE_URL}/cuz/bank/deposits`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-      }
-    );
-    const data = await response.json();
-    console.log("Deposit response:", data);
+  const token = getAuthToken();
 
-    if (response.ok) {
-      // Success response (status 200-299)
-      return {
-        success: true,
-        data: data,
-      };
-    } else {
-      // Error response (status 400-599)
-      console.error("Deposit failed:", data.error || data.message);
-      return {
-        success: false,
-        error: data.error || "Deposit failed. Please try again.",
-      };
+  const result = await fetchWithTokenHandling(
+    `${process.env.REACT_APP_API_BASE_URL}/cuz/bank/deposits`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
     }
-  } catch (error) {
-    console.error("Network error:", error.message);
+  );
 
-    if (error.message === "Failed to fetch") {
-      return {
-        success: false,
-        error:
-          "Unable to connect to server. Please ensure the backend server is running on http://localhost:8000",
-      };
-    } else {
-      return {
-        success: false,
-        error: "Network error. Please check your connection and try again.",
-      };
-    }
+  if (result.tokenExpired) {
+    return result; // Token expired, user will be redirected to login
+  }
+
+  if (result.success) {
+    console.log("Deposits response:", result.data);
+    return result;
+  } else {
+    console.error("Get deposits failed:", result.error);
+    return {
+      success: false,
+      error: result.error || "Failed to fetch deposits. Please try again.",
+    };
   }
 };
