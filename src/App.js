@@ -27,6 +27,7 @@ import Receipts from "./dashBoard/Receipts.js";
 import Aboutus from "./landingPage/Aboutus.js";
 import Deposit from "./admin/Deposit.js";
 import ViewDeposits from "./admin/ViewDeposits.js";
+import User from "./admin/User.js";
 
 function App() {
   return (
@@ -131,6 +132,7 @@ function App() {
               <Route path="receipts" element={<Receipts />} />
               <Route path="deposit" element={<Deposit />} />
               <Route path="deposits" element={<ViewDeposits />} />
+              <Route path="user" element={<User />} />
             </Route>
           </Routes>
         </Router>

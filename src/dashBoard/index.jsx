@@ -33,6 +33,7 @@ const allRoutes = [
 ];
 
 const adminRoutes = [
+  { link: "user", label: "Account user", icon: IconReceipt2 },
   { link: "deposit", label: "Deposit", icon: IconReceipt2 },
   { link: "deposits", label: "View Deposits", icon: IconReceipt2 },
   { link: "receipts", label: "Receipts", icon: IconReceipt },
@@ -87,7 +88,7 @@ export function Dashboard() {
             Forever Trust Bank
           </Text>
           <Group gap="md" className={classes.rightHeaderGroup}>
-            <Text>Welcome, {user?.name}</Text>
+            <Text>Welcome, {user?.type === "business" ? user?.businessName : user?.name}</Text>
             <IconBellRinging size={20} className={classes.notificationIcon} />
             <Avatar
               src={null}
