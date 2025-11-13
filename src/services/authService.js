@@ -1,6 +1,9 @@
 import { toast } from "react-toastify";
 import { fetchWithTokenHandling } from "../utils/apiUtils";
 
+console.log("Backend URL:", process.env.REACT_APP_API_BASE_URL);
+
+
 // Helper function to get token from localStorage
 const getAuthToken = () => {
   return localStorage.getItem("authToken");
