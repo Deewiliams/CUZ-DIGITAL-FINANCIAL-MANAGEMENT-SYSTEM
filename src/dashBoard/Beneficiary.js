@@ -136,7 +136,7 @@ const Beneficiary = () => {
       setLoading(true);
 
       const res = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL}/cuz/bank/beneficiaries`,
+        `${process.env.REACT_APP_API_BASE_URL}/cuz/bank/transfer-to`,
         {
           method: "POST",
           headers: {
